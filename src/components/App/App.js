@@ -4,6 +4,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -17,6 +18,9 @@ function App() {
           </Route>
           <Route path='/sign-up'>
             <Register />
+          </Route>
+          <Route path='/sign-in'>
+            <Login />
           </Route>
         </Switch>
       </CurrentUserContext.Provider>
