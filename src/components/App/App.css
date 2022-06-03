@@ -1,0 +1,28 @@
+input, textarea {outline:none;}
+input:active, textarea:active {outline:none;}
+:focus {outline:none;}
+textarea {resize:none;}
+
+.App {
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern";
+  color: black;
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  font-family: 'Inter', Arial, sans-serif;
+  width: 100%;  
+}
+
+@media screen and (max-width: 767px) {
+  .app {
+    max-width: 100%;
+  }
+}
