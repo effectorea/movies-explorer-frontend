@@ -1,15 +1,16 @@
-import React from "react";
+import React from 'react';
 import './Header.css';
-import headerLogo from "../../images/logo.svg";
-import { Route, Switch, Link } from "react-router-dom";
+import headerLogo from '../../images/logo.svg';
+import { useLocation } from 'react-router-dom';
+import NavMain from '../NavMain/NavMain';
 
-function Header({width}) {
+function Header({ width }) {
+  const location = useLocation();
   return (
-      <header className='header'>
-        <img src={headerLogo} alt='Логотип Место' className='header__logo' />
-        <h2>{ width <= '768' ? 'Hello' : 'Fuck off'}</h2>
-        <div className="header__twin"></div>
-      </header>
+    <header className='header'>
+      <img src={headerLogo} alt='Логотип Место' className='header__logo' />
+      { location.pathname === "/" ? <NavMain/> : "" }  
+    </header>
   );
 }
 
