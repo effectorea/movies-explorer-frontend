@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import useWindowWidth from '../../utils/useWindowWidth';
+import Main from '../Main/Main';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Header width={width} />
+            <Main />
           </Route>
           <Route path='/sign-up'>
             <Register />
