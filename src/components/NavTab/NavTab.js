@@ -5,9 +5,9 @@ import './NavTab.css';
 function NavTab() {
     return (
         <ul className='promo__navtab'>
-            <Link to='#' className='promo__navtab-list_item'>
+            <a href='#aboutProject' className='promo__navtab-list_item'>
               О&#160;проекте
-            </Link>
+            </a>
             <Link to='#' className='promo__navtab-list_item'>
               Технологии
             </Link>
