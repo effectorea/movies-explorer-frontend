@@ -6,9 +6,10 @@
   }
   
   .promo__navtab-list_item {
-    width: 62px;
+    width: 96px;
+    height: 16px;
     display: block;
-    padding: 10px 17px;
+    padding: 10px 0;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -29,11 +30,13 @@
   
 @media screen and (max-width: 490px) {
     .promo__navtab-list_item {
-      width: 48px;
+      width: 82px;
+      height: 16px;
       font-style: normal;
       font-weight: 500;
       font-size: 10px;
       line-height: 16px;
-      padding: 5px 15px;
+      padding: 5px 0;
+      margin-right: 6px;
     }
   }
