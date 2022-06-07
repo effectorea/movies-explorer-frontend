@@ -7,6 +7,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import useWindowWidth from '../../utils/useWindowWidth';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -19,6 +20,7 @@ function App() {
           <Route exact path='/'>
             <Header width={width} />
             <Main />
+            <Footer />
           </Route>
           <Route path='/sign-up'>
             <Register />
