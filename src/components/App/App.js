@@ -22,6 +22,10 @@ function App() {
             <Main />
             <Footer />
           </Route>
+          <Route exact path='/movies'>
+            <Header width={width} />
+            <Footer />
+          </Route>
           <Route path='/sign-up'>
             <Register />
           </Route>
