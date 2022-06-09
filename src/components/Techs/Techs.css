@@ -111,10 +111,10 @@
 }
 
 @media screen and (max-width: 490px) {
-    .techs__list {
-        max-width: 178px;
-    }
+  .techs__list {
+    max-width: 178px;
   }
+}
 
 .techs__list-element {
   width: 90px;
@@ -138,12 +138,11 @@
 }
 
 @media screen and (max-width: 980px) {
-    .techs__list-element {
-        width: 84px;
-        height: 15px;
-        font-size: 12px;
-line-height: 15px;
-padding: 21px 0 21px;
-    }
+  .techs__list-element {
+    width: 84px;
+    height: 15px;
+    font-size: 12px;
+    line-height: 15px;
+    padding: 21px 0 21px;
   }
-  
+}

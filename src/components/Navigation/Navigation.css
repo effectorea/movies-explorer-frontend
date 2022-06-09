@@ -37,24 +37,6 @@
   text-decoration: none;
 }
 
-.navigation__account {
-  display: block;
-  text-decoration: none;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
-  align-items: center;
-  text-align: center;
-  color: #000000;
-  background: #f9f9f9;
-  border-radius: 20px;
-  width: 100px;
-  height: 16px;
-  align-self: center;
-  padding: 8px 0;
-}
-
 @media screen and (max-width: 940px) {
   .navigaion__set {
     display: none;

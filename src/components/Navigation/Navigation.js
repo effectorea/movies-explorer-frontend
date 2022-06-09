@@ -1,6 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 import { Link } from 'react-router-dom';
+import AccBtn from '../AccBtn/AccBtn';
 
 function Navigation() {
   return (
@@ -17,9 +18,7 @@ function Navigation() {
           </Link>
         </li>
       </ul>
-      <Link className='navigation__account' to='/saved-movies'>
-        Аккаунт
-      </Link>
+      <AccBtn/>
     </nav>
   );
 }

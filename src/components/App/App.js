@@ -8,23 +8,24 @@ import Login from '../Login/Login';
 import useWindowWidth from '../../utils/useWindowWidth';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import Movies from '../Movies/Movies';
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const width = useWindowWidth();
+  
 
   return (
     <div className='App'>
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path='/'>
-            <Header width={width} />
+            <Header />
             <Main />
             <Footer />
           </Route>
           <Route exact path='/movies'>
-            <Header width={width} />
-            <Footer />
+            <Movies/>
           </Route>
           <Route path='/sign-up'>
             <Register />
@@ -33,6 +34,7 @@ function App() {
             <Login />
           </Route>
         </Switch>
+        
       </CurrentUserContext.Provider>
     </div>
   );

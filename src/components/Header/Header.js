@@ -1,16 +1,30 @@
 import React from 'react';
 import './Header.css';
 import headerLogo from '../../images/logo.svg';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import NavMain from '../NavMain/NavMain';
 import Navigation from '../Navigation/Navigation';
+import burger from '../../images/burger-btn.svg';
 
-function Header({ width }) {
+function Header({ openBurgerMenu }) {
   const location = useLocation();
   return (
     <header className='header'>
-      <img src={headerLogo} alt='Логотип Место' className='header__logo' />
-      { location.pathname === "/" ? <NavMain/> : <Navigation/>}  
+      <Link to='/'>
+        <img src={headerLogo} alt='Логотип Место' className='header__logo' />
+      </Link>
+
+      {location.pathname === '/' ? <NavMain /> : <Navigation />}
+      {location.pathname === '/' ? (
+        ''
+      ) : (
+        <img
+          onClick={openBurgerMenu}
+          src={burger}
+          alt='Иконка бургер меню'
+          className='header__burger'
+        />
+      )}
     </header>
   );
 }
