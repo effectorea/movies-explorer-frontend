@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './Movies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
