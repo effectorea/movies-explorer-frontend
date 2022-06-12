@@ -1,0 +1,112 @@
+.movies {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 70px 70px 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 364px);
+    grid-template-rows: repeat(4, 271px);
+    column-gap: 24px;
+    row-gap: 30px;
+}
+
+@media screen and (max-width: 1220px) {
+    .movies {
+        max-width: 1084px;
+        padding: 70px 30px 30px;
+        grid-template-columns: repeat(2, 339px);
+        grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
+        column-gap: 30px;
+        row-gap: 36px;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 902px) {
+    .movies {
+        max-width: 768px;
+        padding: 70px 30px 30px;
+        grid-template-columns: repeat(2, 339px);
+        grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
+        column-gap: 30px;
+        row-gap: 36px;
+    }
+}
+
+@media screen and (max-width: 734px) {
+    .movies {
+        max-width: 420px;
+        grid-template-columns: 300px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .movies {
+        max-width: 320px;
+        padding: 40px 10px 30px;
+    }
+}
+
+.movie {
+    background: #FDFDFD;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.movie__container {
+    display: flex;
+    padding: 14px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.movie__block {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie__name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 9px;
+}
+
+.movie__duration {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    color: #A0A0A0;
+    margin: 0;
+    padding: 0;
+}
+
+.movie__like {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: url('../../images/save9d.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    transition: all linear 0.3s;
+}
+
+.movie__like_active {
+    background-image: url('../../images/save9.svg');
+}
+
+.movie__like_delete {
+    background-image: url('../../images/d9-smx.svg');
+}
+
+.movie__image {
+    object-fit: cover;
+    width: 100%;
+}

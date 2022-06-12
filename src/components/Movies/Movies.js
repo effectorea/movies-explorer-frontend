@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import Burger from '../Burger/Burger';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies() {
     const [burgerMenu, setBurgerMenu] = useState(false);
@@ -21,6 +22,7 @@ function Movies() {
     <>
       <Header openBurgerMenu={openBurgerMenu} />
       <SearchForm/>
+      <MoviesCardList/>
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
     </>
