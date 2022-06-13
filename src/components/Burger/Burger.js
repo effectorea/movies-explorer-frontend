@@ -37,12 +37,12 @@ function Burger({ isOpen, onClose }) {
               </Link>
             </li>
             <li className='burger__link'>
-              <Link className='burger__link-unit' to='/movies'>
+              <Link className='burger__link-unit' onClick={onClose} to='/movies'>
                 Фильмы
               </Link>
             </li>
             <li className='burger__link'>
-              <Link className='burger__link-unit' to='/saved-movies'>
+              <Link className='burger__link-unit' onClick={onClose} to='/saved-movies'>
                 Сохраненные фильмы
               </Link>
             </li>
