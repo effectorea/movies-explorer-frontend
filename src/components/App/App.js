@@ -11,6 +11,7 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from "../NotFound/NotFound";
+import Profile from '../../Profile/Profile';
 
 function App() {
   const history = useHistory();
@@ -47,6 +48,13 @@ function App() {
           </Route>
           <Route exact path='/saved-movies'>
             <SavedMovies
+              burgerMenu={burgerMenu}
+              openBurgerMenu={openBurgerMenu}
+              closeBurgerMenu={closeBurgerMenu}
+            />
+          </Route>
+          <Route exact path='/profile'>
+            <Profile
               burgerMenu={burgerMenu}
               openBurgerMenu={openBurgerMenu}
               closeBurgerMenu={closeBurgerMenu}

@@ -47,7 +47,7 @@ function Burger({ isOpen, onClose }) {
               </Link>
             </li>
           </ul>
-          <AccBtn/>
+          <AccBtn onClose={onClose}/>
           <button  onClick={onClose} type="button" className="burger__close"></button>
         </div>
       </div>

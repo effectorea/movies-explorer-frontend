@@ -11,8 +11,9 @@ function MoviesCard({ movieImage }) {
     console.log(isLiked);
   };
 
-  const handleMovieDelete = () => {
-    
+  const handleMovieDelete = (e) => {
+    const el = e.target.parentElement;
+    el.parentElement.remove();
   }
 
   return (
@@ -31,7 +32,7 @@ function MoviesCard({ movieImage }) {
           onClick={location.pathname === '/movies' ? toggleLikeClick : handleMovieDelete}
         ></button>
       </div>
-      <img src={movieImage} alt='Фильм первый' className='movie__image' />
+      <img src={movieImage} alt='Фильм' className='movie__image' />
     </article>
   );
 }
