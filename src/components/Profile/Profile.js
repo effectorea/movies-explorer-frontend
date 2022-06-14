@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Profile.css';
-import Header from '../components/Header/Header';
-import Burger from '../components/Burger/Burger';
+import Header from '../Header/Header';
+import Burger from '../Burger/Burger';
+import ProfilePopup from '../ProfilePopup/ProfilePopup';
 
-function Profile({ openBurgerMenu, burgerMenu, closeBurgerMenu }) {
+function Profile({ openBurgerMenu, burgerMenu, closeBurgerMenu, openEditPopup, onSignOut }) {
+
   return (
     <>
       <Header openBurgerMenu={openBurgerMenu} />
@@ -21,11 +23,12 @@ function Profile({ openBurgerMenu, burgerMenu, closeBurgerMenu }) {
             <h2 className='profile__email'>effectorea@yandex.ru</h2>
           </div>
           <div className='profile__buttons'>
-            <button className='profile__edit'>Редактировать</button>
-            <button className='profile__exit'>Выйти из аккаунта</button>
+            <button onClick={openEditPopup} className='profile__edit'>Редактировать</button>
+            <button onClick={onSignOut} className='profile__exit'>Выйти из аккаунта</button>
           </div>
         </div>
       </section>
+      
     </>
   );
 }
