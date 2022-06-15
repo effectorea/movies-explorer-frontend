@@ -10,7 +10,7 @@ function Portfolio() {
         <li className='portfolio__element'>
           <a
             className='portfolio__link'
-            href='https://github.com/effectorea/how-to-learn'
+            href='https://effectorea.github.io/how-to-learn/index.html'
             target='_blank'
             rel='noopener noreferrer'
           >
