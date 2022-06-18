@@ -1,0 +1,63 @@
+.filter {
+    width: calc(100%/5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+@media screen and (max-width: 1060px) {
+    .filter {
+        width: calc(100%/3.4);
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .filter {
+        width: 100%;
+        gap: 13px;
+    }
+}
+
+.filter__checkbox {
+    width: 36px;
+    height: 20px;
+    background-image: url(../../images/41-416223_off-switch-icon-png-transparent-png.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #F9F9F9;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all ease-in-out 0.4s;
+}
+
+@media screen and (max-width: 700px) {
+    .filter__checkbox {
+        background-color: white;
+    }
+}
+
+.filter__checkbox_active {
+    background-image: url(../../images/smalltumb.png);
+    background-size: cover;
+}
+
+.filter__input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    width: 36px;
+    height: 20px;
+}
+
+.filter__subtitle {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+

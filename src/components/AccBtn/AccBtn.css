@@ -1,0 +1,20 @@
+.navigation__account {
+  display: block;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  background: #f9f9f9;
+  border-radius: 20px;
+  width: 100px;
+  padding: 8px 0;
+  transition: ease-in-out 0.4s;
+}
+
+.navigation__account:hover {
+  transform: scale(1.1);
+  background: gray;
+}

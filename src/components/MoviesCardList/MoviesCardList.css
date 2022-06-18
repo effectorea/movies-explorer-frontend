@@ -1,0 +1,47 @@
+.movies {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 70px 70px 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 364px);
+    grid-template-rows: repeat(auto-fill, 271px);
+    column-gap: 24px;
+    row-gap: 30px;
+}
+
+@media screen and (max-width: 1279px) {
+    .movies {
+        max-width: 1084px;
+        padding: 70px 30px 30px;
+        grid-template-columns: repeat(2, 339px);
+        grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
+        column-gap: 30px;
+        row-gap: 36px;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 902px) {
+    .movies {
+        max-width: 768px;
+        padding: 70px 30px 30px;
+        grid-template-columns: repeat(2, 339px);
+        grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
+        column-gap: 30px;
+        row-gap: 36px;
+    }
+}
+
+@media screen and (max-width: 734px) {
+    .movies {
+        max-width: 420px;
+        grid-template-columns: 300px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .movies {
+        max-width: 320px;
+        padding: 40px 10px 30px;
+    }
+}

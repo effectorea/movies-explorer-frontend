@@ -1,0 +1,123 @@
+.profile {
+    max-width: 1280px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.profile__content {
+    min-width: 410px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (max-width: 490px) {
+    .profile__content {
+        min-width: 260px;
+    }
+  }
+
+.profile__title {
+    margin: 74px 0 123px;
+    padding: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #000000;
+}
+
+@media screen and (max-width: 980px) {
+    .profile__title {
+        margin: 236px 0 96px;
+    }
+  }
+  
+  @media screen and (max-width: 490px) {
+    .profile__title {
+        margin: 70px 0 80px;
+    }
+  }
+
+.profile__block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile__name {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #000000;
+}
+
+.profile__email {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #000000;
+}
+
+.profile__line {
+    display: block;
+    content: '';
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    margin: 16px 0;
+}
+
+.profile__buttons {
+    margin-top: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
+@media screen and (max-width: 980px) {
+    .profile__buttons {
+        margin-top: 210px;
+        margin-bottom: 269px;
+    }
+  }
+
+  @media screen and (max-width: 490px) {
+    .profile__buttons {
+        margin-top: 379px;
+        margin-bottom: 40px;
+    }
+  }
+
+.profile__edit {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000000;
+    border: none;
+    background: #FFFFFF;
+}
+
+.profile__exit {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: #EE3465;
+    background: #FFFFFF;
+}

@@ -1,0 +1,44 @@
+.navigaion__set {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 44px;
+}
+
+.navigation__links {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation__link {
+  list-style: none;
+  display: block;
+  align-self: center;
+}
+
+.navigation__link_movies {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000000;
+  text-align: right;
+  text-decoration: none;
+}
+
+.navigation__link_saved {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 940px) {
+  .navigaion__set {
+    display: none;
+  }
+}
