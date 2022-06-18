@@ -28,7 +28,7 @@ function Profile({ openBurgerMenu, burgerMenu, closeBurgerMenu, openEditPopup, o
           </div>
         </div>
       </section>
-      
+
     </>
   );
 }
