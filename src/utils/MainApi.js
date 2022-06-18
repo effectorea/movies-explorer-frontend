@@ -12,7 +12,7 @@ class Api {
   }
 
   getUserInfo(token) {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ class Api {
   }
 
   checkToken(token) {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/me`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

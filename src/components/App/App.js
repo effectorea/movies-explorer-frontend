@@ -40,7 +40,7 @@ function App() {
         })
         .catch((err) => console.log(err));
     }
-  }, [history, jwt, currentUser]);
+  }, [history, jwt]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -84,9 +84,10 @@ function App() {
   function handleLoggingIn({ email, password }) {
     MainApi.login(email, password)
       .then((res) => {
+        console.log(res.user)
         if (res.token) {
+          setCurrentUser(res.user);
           localStorage.setItem('jwt', res.token);
-          console.log(res.token)
           setLoggedIn(true);
           history.push('/movies');
         }
