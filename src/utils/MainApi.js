@@ -12,7 +12,7 @@ class Api {
   }
 
   getUserInfo(token) {
-    return fetch(`${this._url}/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ class Api {
     }).then(onResponse);
   }
 
-  setUserInfo(name, email, token) {
+  setUserInfo(data, token) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -29,8 +29,8 @@ class Api {
         authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        name,
-        email,
+        name: data.name,
+        email: data.email,
       }),
     }).then(onResponse);
   }
@@ -59,7 +59,7 @@ class Api {
   }
 
   checkToken(token) {
-    return fetch(`${this._url}/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -71,7 +71,7 @@ class Api {
   };
 
   toggleLike(movieId, isLiked, token) {
-    return fetch(`${this._url}/movies/${movieId}/likes`, {
+    return fetch(`${this._url}/movies/${movieId}`, {
       method: `${isLiked ? 'DELETE' : 'PUT'}`,
       headers: {
         'Content-Type': 'application/json',

@@ -2,9 +2,15 @@ import React, {useState, useEffect, useContext} from 'react';
 import './ProfilePopup.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function ProfilePopup({ isOpen, onClose }) {
+function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const currentUser = useContext(CurrentUserContext);
+
+    useEffect(() => {
+      setName(currentUser?.name);
+      setEmail(currentUser?.email);
+    }, [currentUser]);
   
     function handleNameChange(e) {
       setName(e.target.value);
@@ -16,6 +22,10 @@ function ProfilePopup({ isOpen, onClose }) {
   
     function handleSubmit(e) {
       e.preventDefault();
+      onUpdateUser({
+        name: name,
+        email: email,
+      });
       onClose();
     }
 

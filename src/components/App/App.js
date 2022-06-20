@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from '../Header/Header';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
-import useWindowWidth from '../../utils/useWindowWidth';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
@@ -25,12 +24,22 @@ function App() {
 
   const jwt = localStorage.getItem('jwt');
 
+  const handleUpdateUser = useCallback((info) => {
+    MainApi.setUserInfo(info, jwt)
+      .then((res) => {
+        setCurrentUser(res);
+        closeEditPopup();
+      })
+      .catch((err) => {
+        console.log(`Ошибка при загрузке данных пользователя ${err}`);
+      });
+  }, [jwt])
+
   useEffect(() => {
     if (jwt) {
       MainApi.checkToken(jwt)
         .then((res) => {
           if (res) {
-            console.log(res)
             setLoggedIn(true);
             setCurrentUser(res);
             history.push('/movies');
@@ -40,13 +49,12 @@ function App() {
         })
         .catch((err) => console.log(err));
     }
-  }, [history, jwt]);
+  }, [history, jwt, handleUpdateUser]);
 
   useEffect(() => {
     if (loggedIn) {
       MainApi.getUserInfo(jwt)
         .then((res) => {
-          console.log(res);
           setCurrentUser(res);
         })
         .catch((err) => console.log(`Ошибка при загрузке данных ${err}`));
@@ -55,7 +63,6 @@ function App() {
 
   function openEditPopup() {
     setIsEditProfilePopupOpen(true);
-    console.log(isEditProfilePopupOpen);
   }
   function closeEditPopup() {
     setIsEditProfilePopupOpen(false);
@@ -135,7 +142,6 @@ function App() {
             exact
             path='/profile'
             component={Profile}
-            loggedIn={loggedIn}
             burgerMenu={burgerMenu}
             openBurgerMenu={openBurgerMenu}
             closeBurgerMenu={closeBurgerMenu}
@@ -156,6 +162,7 @@ function App() {
         <ProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeEditPopup}
+          onUpdateUser={handleUpdateUser}
         />
       </CurrentUserContext.Provider>
     </div>

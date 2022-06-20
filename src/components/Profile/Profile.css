@@ -108,6 +108,7 @@
     color: #000000;
     border: none;
     background: #FFFFFF;
+    cursor: pointer;
 }
 
 .profile__exit {
@@ -120,4 +121,5 @@
     line-height: 16px;
     color: #EE3465;
     background: #FFFFFF;
+    cursor: pointer;
 }
