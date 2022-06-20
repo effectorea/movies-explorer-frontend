@@ -3,9 +3,10 @@ import './ProfilePopup.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
+  const currentUser = useContext(CurrentUserContext);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const currentUser = useContext(CurrentUserContext);
+    
 
     useEffect(() => {
       setName(currentUser?.name);

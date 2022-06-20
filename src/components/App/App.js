@@ -142,6 +142,7 @@ function App() {
             exact
             path='/profile'
             component={Profile}
+            loggedIn={loggedIn}
             burgerMenu={burgerMenu}
             openBurgerMenu={openBurgerMenu}
             closeBurgerMenu={closeBurgerMenu}

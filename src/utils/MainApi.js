@@ -70,9 +70,9 @@ class Api {
     .then(onResponse)
   };
 
-  toggleLike(movieId, isLiked, token) {
-    return fetch(`${this._url}/movies/${movieId}`, {
-      method: `${isLiked ? 'DELETE' : 'PUT'}`,
+  putLike(movieId, token) {
+    return fetch(`${this._url}/movies`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${token}`,

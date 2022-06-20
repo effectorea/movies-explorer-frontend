@@ -6,13 +6,32 @@ import SearchForm from '../SearchForm/SearchForm';
 import Burger from '../Burger/Burger';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import LoadMore from '../LoadMore/LoadMore';
+import { moviesApi } from '../../utils/MoviesApi';
+import { MainApi } from '../../utils/MainApi';
 
-function Movies({ openBurgerMenu, burgerMenu, closeBurgerMenu }) {
+function Movies({ openBurgerMenu, burgerMenu, closeBurgerMenu, loggedIn }) {
+  const [movies, setMovies] = useState([]);
+  const jwt = localStorage.getItem("jwt");
+
+  React.useEffect(() => {
+    if (jwt) {
+      moviesApi.getMovies()
+      .then((res) => {
+        console.log(res)
+        setMovies(res)
+    })
+  }
+  }, [loggedIn, jwt]);
+
+  function handleCardLike(movie) {
+
+  }
+
   return (
     <>
       <Header openBurgerMenu={openBurgerMenu} />
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList movies={movies} onCardLike={handleCardLike} />
       <LoadMore />
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
