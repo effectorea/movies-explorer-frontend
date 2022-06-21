@@ -70,14 +70,28 @@ class Api {
     .then(onResponse)
   };
 
-  putLike(movieId, token) {
+  saveMovie(movie, token) {
     return fetch(`${this._url}/movies`, {
-      method: 'PUT',
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-    }).then(onResponse);
+      body: JSON.stringify({
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co/${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        movieId: movie.id.toString(),
+        thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,
+      }),
+    })
+    .then(onResponse)
   }
 
   deleteMovie(movieId, token) {

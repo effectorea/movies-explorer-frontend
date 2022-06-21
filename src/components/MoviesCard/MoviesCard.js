@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import './MoviesCard.css';
 
-function MoviesCard({ movie, onCardLike }) {
+function MoviesCard({ movie, onCardLike, savedMovies }) {
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
 
@@ -10,6 +10,8 @@ function MoviesCard({ movie, onCardLike }) {
     onCardLike(movie);
     console.log(movie)
     setIsLiked(!isLiked);
+    savedMovies.push(movie)
+    console.log(savedMovies)
   }
 
   const handleMovieDelete = (e) => {
