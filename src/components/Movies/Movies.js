@@ -9,11 +9,14 @@ import LoadMore from '../LoadMore/LoadMore';
 import { moviesApi } from '../../utils/MoviesApi';
 import { MainApi } from '../../utils/MainApi';
 import { useLocation } from 'react-router-dom';
+import { useLocalStorage } from '../../utils/useLocalStorage';
 
 function Movies({ openBurgerMenu, burgerMenu, closeBurgerMenu, loggedIn }) {
   const location = useLocation();
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useLocalStorage("movies", []);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [isSearchValue, setIsSearchValue] = useState("");
   const jwt = localStorage.getItem("jwt");
 
   React.useEffect(() => {
@@ -23,8 +26,11 @@ function Movies({ openBurgerMenu, burgerMenu, closeBurgerMenu, loggedIn }) {
         console.log(res)
         setMovies(res)
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
-  }, [loggedIn, jwt]);
+  }, [loggedIn, jwt, setMovies]);
 
   function handleCardLike(movie) {
     MainApi.saveMovie(movie, jwt)
@@ -36,8 +42,8 @@ function Movies({ openBurgerMenu, burgerMenu, closeBurgerMenu, loggedIn }) {
   return (
     <>
       <Header openBurgerMenu={openBurgerMenu} />
-      <SearchForm />
-      <MoviesCardList movies={movies} onCardLike={handleCardLike} savedMovies={savedMovies} />
+      <SearchForm isShortMovie={isShortMovie} setIsShortMovie={setIsShortMovie} isSearchValue={isSearchValue} setIsSearchValue={setIsSearchValue} />
+      <MoviesCardList movies={movies} savedMovies={savedMovies} onCardLike={handleCardLike} />
       <LoadMore />
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />

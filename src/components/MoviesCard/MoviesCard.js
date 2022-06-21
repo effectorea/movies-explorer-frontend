@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import './MoviesCard.css';
+import { useLocalStorage } from '../../utils/useLocalStorage';
 
-function MoviesCard({ movie, onCardLike, savedMovies }) {
+function MoviesCard({ movie, onCardLike }) {
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
 
-  function handleLikeClick() {
+  const handleLikeClick = () => {
     onCardLike(movie);
-    console.log(movie)
     setIsLiked(!isLiked);
-    savedMovies.push(movie)
-    console.log(savedMovies)
   }
 
   const handleMovieDelete = (e) => {

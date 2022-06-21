@@ -11,7 +11,7 @@ function MoviesCardList({ movies, onCardLike, savedMovies }) {
                 movie={element}
                 key={element.id}
                 onCardLike={onCardLike}
-                savedMovies={savedMovies}
+
               />
             );
           })}
