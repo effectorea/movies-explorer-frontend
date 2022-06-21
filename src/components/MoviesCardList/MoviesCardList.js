@@ -1,17 +1,44 @@
 import React, { useState } from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
-function MoviesCardList({ movies, onCardLike, savedMovies }) {
+function MoviesCardList({ movies, onMovieLike, onMovieDelete, savedMovies }) {
+
+  const location = useLocation();
+
   return (
     <section className='movies'>
-      {movies && movies.map((element) => {
+      {location.pathname === '/movies'
+        ? movies &&
+          movies.map((element) => {
             return (
               <MoviesCard
                 movie={element}
                 key={element.id}
-                onCardLike={onCardLike}
-
+                nameRu={element.nameRU}
+                duration={element.duration}
+                trailerLink={element.trailerLink}
+                image={element.image.url}
+                onMovieLike={onMovieLike}
+                onMovieDelete={onMovieDelete}
+                savedMovies={savedMovies}
+              />
+            );
+          })
+        : savedMovies &&
+          savedMovies.map((element) => {
+            return (
+              <MoviesCard
+                movie={element}
+                key={element._id}
+                nameRu={element.nameRU}
+                duration={element.duration}
+                trailerLink={element.trailerLink}
+                image={element.image}
+                onMovieLike={onMovieLike}
+                onMovieDelete={onMovieDelete}
+                savedMovies={savedMovies}
               />
             );
           })}

@@ -70,6 +70,16 @@ class Api {
     .then(onResponse)
   };
 
+  getSavedMovies(token) {
+    return fetch(`${this._url}/movies`, {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(onResponse)
+  }
+
   saveMovie(movie, token) {
     return fetch(`${this._url}/movies`, {
       method: 'POST',

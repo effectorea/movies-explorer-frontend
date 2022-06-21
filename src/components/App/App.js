@@ -14,6 +14,8 @@ import Profile from '../Profile/Profile';
 import ProfilePopup from '../ProfilePopup/ProfilePopup';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { MainApi } from '../../utils/MainApi';
+import { useLocalStorage } from '../../utils/useLocalStorage';
+import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
   const history = useHistory();
@@ -21,6 +23,10 @@ function App() {
   const [burgerMenu, setBurgerMenu] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [movies, setMovies] = useLocalStorage('movies', []);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [isSearchValue, setIsSearchValue] = useState('');
 
   const jwt = localStorage.getItem('jwt');
 
@@ -60,6 +66,36 @@ function App() {
         .catch((err) => console.log(`Ошибка при загрузке данных ${err}`));
     }
   }, [loggedIn, jwt]);
+
+  useEffect(() => {
+    if (jwt) {
+      moviesApi
+        .getMovies()
+        .then((res) => {
+          console.log(res);
+          setMovies(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn, jwt, setMovies]);
+
+
+  useEffect(() => {
+    if (jwt) {
+      MainApi.getSavedMovies(jwt)
+        .then((res) => {
+          if (res) {
+            setSavedMovies(res);
+            console.log(res)
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [jwt, setSavedMovies]);
 
   function openEditPopup() {
     setIsEditProfilePopupOpen(true);
@@ -110,6 +146,34 @@ function App() {
     setLoggedIn(false);
   }
 
+  function handleCardLike(movie) {
+    if (jwt) {
+      MainApi.saveMovie(movie, jwt)
+      .then((res) => {
+        setSavedMovies([res, ...savedMovies]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }
+
+  function handleMovieDelete(movieId) {
+    if (jwt) {
+      MainApi.deleteMovie(movieId, jwt)
+        .then(() => {
+          const newMovies = savedMovies.filter(
+            (movie) => movie._id !== movieId
+          );
+          setSavedMovies(newMovies);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+
   return (
     <div className='App'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -127,6 +191,14 @@ function App() {
             burgerMenu={burgerMenu}
             openBurgerMenu={openBurgerMenu}
             closeBurgerMenu={closeBurgerMenu}
+            isShortMovie={isShortMovie}
+            setIsShortMovie={setIsShortMovie}
+            isSearchValue={isSearchValue}
+            setIsSearchValue={setIsSearchValue}
+            movies={movies}
+            savedMovies={savedMovies}
+            onMovieLike={handleCardLike}
+            onMovieDelete={handleMovieDelete}
           />
           <ProtectedRoute
             exact
@@ -136,7 +208,14 @@ function App() {
             burgerMenu={burgerMenu}
             openBurgerMenu={openBurgerMenu}
             closeBurgerMenu={closeBurgerMenu}
-            currentUser={currentUser}
+            isShortMovie={isShortMovie}
+            setIsShortMovie={setIsShortMovie}
+            isSearchValue={isSearchValue}
+            setIsSearchValue={setIsSearchValue}
+            movies={movies}
+            savedMovies={savedMovies}
+            onMovieLike={handleCardLike}
+            onMovieDelete={handleMovieDelete}
           />
           <ProtectedRoute
             exact
