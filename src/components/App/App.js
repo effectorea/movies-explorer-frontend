@@ -26,20 +26,23 @@ function App() {
   const [movies, setMovies] = useLocalStorage('movies', []);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isShortMovie, setIsShortMovie] = useState(false);
-  const [isSearchValue, setIsSearchValue] = useState('');
+  const [isSearchValue, setIsSearchValue] = useLocalStorage('search', '');
 
   const jwt = localStorage.getItem('jwt');
 
-  const handleUpdateUser = useCallback((info) => {
-    MainApi.setUserInfo(info, jwt)
-      .then((res) => {
-        setCurrentUser(res);
-        closeEditPopup();
-      })
-      .catch((err) => {
-        console.log(`Ошибка при загрузке данных пользователя ${err}`);
-      });
-  }, [jwt])
+  const handleUpdateUser = useCallback(
+    (info) => {
+      MainApi.setUserInfo(info, jwt)
+        .then((res) => {
+          setCurrentUser(res);
+          closeEditPopup();
+        })
+        .catch((err) => {
+          console.log(`Ошибка при загрузке данных пользователя ${err}`);
+        });
+    },
+    [jwt]
+  );
 
   useEffect(() => {
     if (jwt) {
@@ -81,14 +84,13 @@ function App() {
     }
   }, [loggedIn, jwt, setMovies]);
 
-
   useEffect(() => {
     if (jwt) {
       MainApi.getSavedMovies(jwt)
         .then((res) => {
           if (res) {
             setSavedMovies(res);
-            console.log(res)
+            console.log(res);
           }
         })
         .catch((err) => {
@@ -127,7 +129,7 @@ function App() {
   function handleLoggingIn({ email, password }) {
     MainApi.login(email, password)
       .then((res) => {
-        console.log(res.user)
+        console.log(res.user);
         if (res.token) {
           setCurrentUser(res.user);
           localStorage.setItem('jwt', res.token);
@@ -146,17 +148,20 @@ function App() {
     setLoggedIn(false);
   }
 
-  function handleCardLike(movie) {
-    if (jwt) {
-      MainApi.saveMovie(movie, jwt)
-      .then((res) => {
-        setSavedMovies([res, ...savedMovies]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
-  }
+  const handleCardLike = useCallback(
+    (movie) => {
+      if (jwt) {
+        MainApi.saveMovie(movie, jwt)
+          .then((res) => {
+            setSavedMovies([res, ...savedMovies]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    [jwt, savedMovies]
+  );
 
   function handleMovieDelete(movieId) {
     if (jwt) {
@@ -172,7 +177,6 @@ function App() {
         });
     }
   }
-
 
   return (
     <div className='App'>

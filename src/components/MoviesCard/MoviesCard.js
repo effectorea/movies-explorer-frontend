@@ -16,6 +16,8 @@ function MoviesCard({
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
 
+  localStorage.setItem("likes", JSON.stringify(isLiked)); 
+
   const handleLikeClick = () => {
     if (!isLiked) {
       onMovieLike(movie);
