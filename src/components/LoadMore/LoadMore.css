@@ -38,6 +38,6 @@
 }
 
 .load-more__button:hover {
-    transform: scale(1.3);
+    transform: scale(1.2);
     background-color: #2BE080;
 }

@@ -7,6 +7,8 @@ import Burger from '../Burger/Burger';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import LoadMore from '../LoadMore/LoadMore';
 import { MainApi } from '../../utils/MainApi';
+import NoSearch from '../NoSearch/NoSearch';
+import Preloader from '../Preloader/Preloader';
 
 function Movies({
   openBurgerMenu,
@@ -21,6 +23,10 @@ function Movies({
   savedMovies,
   onMovieLike,
   onMovieDelete,
+  onSearchMovies,
+  onFilter,
+  isPreloader,
+  checkbox
 }) {
   return (
     <>
@@ -30,14 +36,18 @@ function Movies({
         setIsShortMovie={setIsShortMovie}
         isSearchValue={isSearchValue}
         setIsSearchValue={setIsSearchValue}
+        onSearchMovies={onSearchMovies}
+        onFilter={onFilter}
+        checkbox={checkbox}
       />
-      <MoviesCardList
+      {isPreloader ? <Preloader/> : ""}
+      {movies.length === 0 ? <NoSearch/> : <MoviesCardList
         movies={movies}
         savedMovies={savedMovies}
         onMovieLike={onMovieLike}
         onMovieDelete={onMovieDelete}
-      />
-      <LoadMore />
+      />}
+      {movies.length === 100 ? "" : <LoadMore/>}
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
     </>

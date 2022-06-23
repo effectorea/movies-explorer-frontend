@@ -3,7 +3,7 @@ import './SearchForm.css';
 import search from '../../images/search-icon.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ isShortMovie, setIsShortMovie, isSearchValue, setIsSearchValue, onSubmit }) {
+function SearchForm({ isShortMovie, setIsShortMovie, isSearchValue, setIsSearchValue, onSearchMovies, onFilter, checkbox }) {
 
   const handleValueChange = (e) => {
     setIsSearchValue(e.target.value)
@@ -15,7 +15,7 @@ function SearchForm({ isShortMovie, setIsShortMovie, isSearchValue, setIsSearchV
       <div className='search__section'>
         <div className='search__block'>
           <img src={search} alt='Лупа' className='search__image' />
-          <form className='search__form' onSubmit={onSubmit} noValidate>
+          <form className='search__form' onSubmit={onSearchMovies} noValidate>
             <fieldset className='search__field'>
               <input
                 className='search__input'
@@ -29,7 +29,7 @@ function SearchForm({ isShortMovie, setIsShortMovie, isSearchValue, setIsSearchV
             </fieldset>
           </form>
         </div>
-        <FilterCheckbox isShortMovie={isShortMovie} setIsShortMovie={setIsShortMovie} />
+        <FilterCheckbox isShortMovie={isShortMovie} setIsShortMovie={setIsShortMovie} onFilter={onFilter} checkbox={checkbox} />
       </div>
     </section>
   );

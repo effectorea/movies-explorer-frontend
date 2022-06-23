@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
-function MoviesCardList({ movies, onMovieLike, onMovieDelete, savedMovies, result }) {
+function MoviesCardList({ movies, onMovieLike, onMovieDelete, savedMovies }) {
 
   const location = useLocation();
 
   return (
-    <section ref={result} className='movies'>
+    <section className='movies'>
       {location.pathname === '/movies'
         ? movies &&
           movies.map((element) => {

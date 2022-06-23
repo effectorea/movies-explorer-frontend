@@ -16,20 +16,25 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { MainApi } from '../../utils/MainApi';
 import { useLocalStorage } from '../../utils/useLocalStorage';
 import { moviesApi } from '../../utils/MoviesApi';
+import { useLocation } from 'react-router-dom';
 
 function App() {
   const history = useHistory();
-  const result = useRef();
+  const checkbox = useRef();
   const [currentUser, setCurrentUser] = useState({});
   const [burgerMenu, setBurgerMenu] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useLocalStorage('movies', []);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isShortMovie, setIsShortMovie] = useLocalStorage( 'checkbox',false);
+  const [isShortMovie, setIsShortMovie] = useLocalStorage('checkbox', false);
   const [isSearchValue, setIsSearchValue] = useLocalStorage('search', '');
+  const [isPreloader, setIsPreloader] = useState(false);
+  const [searchMovies, setSearchMovies] = useLocalStorage('searchMovies', []);
 
   const jwt = localStorage.getItem('jwt');
+
+  const location = useLocation();
 
   const handleUpdateUser = useCallback(
     (info) => {
@@ -44,6 +49,17 @@ function App() {
     },
     [jwt]
   );
+
+   useEffect(() => {
+    moviesApi
+        .getMovies()
+        .then((res) => {
+          setSearchMovies(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [setSearchMovies])
 
   useEffect(() => {
     if (jwt) {
@@ -70,20 +86,6 @@ function App() {
         .catch((err) => console.log(`Ошибка при загрузке данных ${err}`));
     }
   }, [loggedIn, jwt]);
-
-  useEffect(() => {
-    if (jwt) {
-      moviesApi
-        .getMovies()
-        .then((res) => {
-          console.log(res);
-          setMovies(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
 
   useEffect(() => {
     if (jwt) {
@@ -136,7 +138,6 @@ function App() {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
           history.push('/movies');
-          
         }
       })
       .catch((err) => {
@@ -175,7 +176,68 @@ function App() {
           setSavedMovies(newMovies);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
+        });
+    }
+  }
+
+  function filterMovies() {
+    setIsPreloader(true)
+    if (checkbox.current.checked) {
+      if (location.pathname === '/movies') {
+        const shortMovies = movies.filter((movie) => movie.duration <= 40)
+        setMovies(shortMovies);
+        setIsPreloader(false)
+      } else {
+        const shortMovies = savedMovies.filter((movie) => movie.duration <= 40)
+        setSavedMovies(shortMovies);
+        setIsPreloader(false)
+      }     
+    } else {
+      MainApi.getSavedMovies(jwt)
+      .then((res) => {
+        setIsPreloader(false)
+        setSavedMovies(res);
+      })
+      moviesApi.getMovies()
+      .then((res) => {
+        setIsPreloader(false)
+        setMovies(res);
+        handleSearch();
+      })
+      
+    }
+  }
+
+  function handleSearch(event) {
+    event.preventDefault();
+    setIsPreloader(true)
+    if (location.pathname === '/movies') {
+    moviesApi
+        .getMovies()
+        .then((res) => {
+          setIsPreloader(false)
+          console.log(res);
+          const moviesList = res.filter((movie) =>
+          movie.nameRU.toString().includes(isSearchValue.toString()));
+          setMovies(moviesList);
+          console.log(movies)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      MainApi.getSavedMovies(jwt)
+        .then((res) => {
+          if (res) {
+            setIsPreloader(false)
+            const searchSaved = res.filter((movie) => movie.nameRU.toString().includes(isSearchValue.toString()))
+            setSavedMovies(searchSaved)
+            console.log(res);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
@@ -201,10 +263,14 @@ function App() {
             setIsShortMovie={setIsShortMovie}
             isSearchValue={isSearchValue}
             setIsSearchValue={setIsSearchValue}
-            movies={movies}
             savedMovies={savedMovies}
             onMovieLike={handleCardLike}
             onMovieDelete={handleMovieDelete}
+            onSearchMovies={handleSearch}
+            onFilter={filterMovies}
+            movies={isSearchValue ? movies : savedMovies}
+            isPreloader={isPreloader}
+            checkbox={checkbox}
           />
           <ProtectedRoute
             exact
@@ -218,11 +284,13 @@ function App() {
             setIsShortMovie={setIsShortMovie}
             isSearchValue={isSearchValue}
             setIsSearchValue={setIsSearchValue}
-            movies={movies}
             savedMovies={savedMovies}
             onMovieLike={handleCardLike}
             onMovieDelete={handleMovieDelete}
-            result={result}
+            onSearchMovies={handleSearch}
+            onFilter={filterMovies}
+            isPreloader={isPreloader}
+            checkbox={checkbox}
           />
           <ProtectedRoute
             exact
@@ -235,6 +303,7 @@ function App() {
             openEditPopup={openEditPopup}
             onSignOut={handleSignOut}
             currentUser={currentUser}
+            isPreloader={isPreloader}
           />
           <Route path='/sign-up'>
             <Register onRegister={handleRegistration} />

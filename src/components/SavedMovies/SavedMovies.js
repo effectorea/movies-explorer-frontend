@@ -4,6 +4,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import Burger from '../Burger/Burger';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
+import Preloader from '../Preloader/Preloader';
+import NoSearch from '../NoSearch/NoSearch';
 
 function SavedMovies({
   openBurgerMenu,
@@ -18,7 +20,10 @@ function SavedMovies({
   savedMovies,
   onMovieLike,
   onMovieDelete,
-  result
+  onSearchMovies,
+  onFilter,
+  isPreloader,
+  checkbox
 }) {
   return (
     <>
@@ -28,14 +33,22 @@ function SavedMovies({
         setIsShortMovie={setIsShortMovie}
         isSearchValue={isSearchValue}
         setIsSearchValue={setIsSearchValue}
+        onSearchMovies={onSearchMovies}
+        onFilter={onFilter}
+        checkbox={checkbox}
       />
-      <MoviesCardList
-        movies={movies}
-        savedMovies={savedMovies}
-        onMovieLike={onMovieLike}
-        onMovieDelete={onMovieDelete}
-        result={result}
-      />
+      {isPreloader ? <Preloader /> : ''}
+      {savedMovies.length === 0 ? (
+        <NoSearch />
+      ) : (
+        <MoviesCardList
+          movies={movies}
+          savedMovies={savedMovies}
+          onMovieLike={onMovieLike}
+          onMovieDelete={onMovieDelete}
+        />
+      )}
+
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
     </>

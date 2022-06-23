@@ -1,0 +1,21 @@
+.search-not__container {
+    width: 100vw;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-not__description {
+    margin: 0;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 22px;
+    color: #2be080;
+    margin: 50px auto;
+}
+
+
