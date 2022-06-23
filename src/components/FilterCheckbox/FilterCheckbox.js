@@ -10,7 +10,7 @@ function FilterCheckbox ({ isShortMovie, setIsShortMovie }) {
     
     return (
         <div className='filter'>
-        <label className={ !isShortMovie ? 'filter__checkbox filter__checkbox_active' : 'filter__checkbox' }>
+        <label className={ isShortMovie ? 'filter__checkbox_active' : 'filter__checkbox' }>
           <input onClick={toggleCheckbox} type='checkbox' className='filter__input' />
         </label>
         <p className='filter__subtitle'>Короткометражки</p>

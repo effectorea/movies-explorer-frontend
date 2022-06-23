@@ -18,6 +18,7 @@ function SavedMovies({
   savedMovies,
   onMovieLike,
   onMovieDelete,
+  result
 }) {
   return (
     <>
@@ -33,6 +34,7 @@ function SavedMovies({
         savedMovies={savedMovies}
         onMovieLike={onMovieLike}
         onMovieDelete={onMovieDelete}
+        result={result}
       />
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />

@@ -39,8 +39,15 @@
 }
 
 .filter__checkbox_active {
+    width: 36px;
+    height: 20px;
     background-image: url(../../images/smalltumb.png);
     background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #F9F9F9;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all ease-in-out 0.4s;
 }
 
 .filter__input {

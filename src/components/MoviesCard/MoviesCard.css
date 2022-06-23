@@ -39,7 +39,7 @@
 }
 
 .movie__like {
-    width: 30px;
+    min-width: 30px;
     height: 30px;
     border-radius: 50%;
     background-image: url('../../images/save9d.svg');
@@ -51,7 +51,7 @@
 }
 
 .movie__like_active {
-    width: 30px;
+    min-width: 30px;
     height: 30px;
     border-radius: 50%;
     background-image: url('../../images/save9.svg');

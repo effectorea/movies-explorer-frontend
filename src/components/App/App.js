@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './App.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { Route, Switch, useHistory } from 'react-router-dom';
@@ -19,13 +19,14 @@ import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
   const history = useHistory();
+  const result = useRef();
   const [currentUser, setCurrentUser] = useState({});
   const [burgerMenu, setBurgerMenu] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useLocalStorage('movies', []);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [isShortMovie, setIsShortMovie] = useLocalStorage( 'checkbox',false);
   const [isSearchValue, setIsSearchValue] = useLocalStorage('search', '');
 
   const jwt = localStorage.getItem('jwt');
@@ -82,7 +83,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [loggedIn, jwt, setMovies]);
+  }, []);
 
   useEffect(() => {
     if (jwt) {
@@ -135,10 +136,11 @@ function App() {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
           history.push('/movies');
+          
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   }
 
@@ -173,7 +175,7 @@ function App() {
           setSavedMovies(newMovies);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err)
         });
     }
   }
@@ -220,6 +222,7 @@ function App() {
             savedMovies={savedMovies}
             onMovieLike={handleCardLike}
             onMovieDelete={handleMovieDelete}
+            result={result}
           />
           <ProtectedRoute
             exact

@@ -3,12 +3,12 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
-function MoviesCardList({ movies, onMovieLike, onMovieDelete, savedMovies }) {
+function MoviesCardList({ movies, onMovieLike, onMovieDelete, savedMovies, result }) {
 
   const location = useLocation();
 
   return (
-    <section className='movies'>
+    <section ref={result} className='movies'>
       {location.pathname === '/movies'
         ? movies &&
           movies.map((element) => {
