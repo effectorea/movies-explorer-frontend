@@ -3,7 +3,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
-function MoviesCardList({ movies, onMovieLike, onMovieDelete, savedMovies }) {
+function MoviesCardList({ movies, onMovieLike, onMovieDelete, savedMovies, filteredMovies }) {
 
   const location = useLocation();
 

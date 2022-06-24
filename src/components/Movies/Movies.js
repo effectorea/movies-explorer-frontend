@@ -26,7 +26,8 @@ function Movies({
   onSearchMovies,
   onFilter,
   isPreloader,
-  checkbox
+  checkbox,
+  filteredMovies
 }) {
   return (
     <>
@@ -41,8 +42,9 @@ function Movies({
         checkbox={checkbox}
       />
       {isPreloader ? <Preloader/> : ""}
-      {movies.length === 0 ? <NoSearch/> : <MoviesCardList
-        movies={movies}
+      {movies.length === 0 || isSearchValue === '' ? <NoSearch/> : <MoviesCardList
+        movies={!isShortMovie ? filteredMovies : movies}
+        filteredMovies={filteredMovies}
         savedMovies={savedMovies}
         onMovieLike={onMovieLike}
         onMovieDelete={onMovieDelete}

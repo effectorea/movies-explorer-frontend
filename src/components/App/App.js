@@ -25,12 +25,16 @@ function App() {
   const [burgerMenu, setBurgerMenu] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [movies, setMovies] = useLocalStorage('movies', []);
-  const [savedMovies, setSavedMovies] = useState([]);
+
+  const [searchMovies, setSearchMovies] = useLocalStorage('searchMovies', []); //главные
+  const [movies, setMovies] = useLocalStorage('movies', []); //найденные фильмы
+  const [filteredMovies, setFilteredMovies] = useLocalStorage('filteredMovies',[]);
+  const [savedMovies, setSavedMovies] = useState([]); //сохраненные фильмы
+
   const [isShortMovie, setIsShortMovie] = useLocalStorage('checkbox', false);
   const [isSearchValue, setIsSearchValue] = useLocalStorage('search', '');
   const [isPreloader, setIsPreloader] = useState(false);
-  const [searchMovies, setSearchMovies] = useLocalStorage('searchMovies', []);
+  
 
   const jwt = localStorage.getItem('jwt');
 
@@ -186,7 +190,7 @@ function App() {
     if (checkbox.current.checked) {
       if (location.pathname === '/movies') {
         const shortMovies = movies.filter((movie) => movie.duration <= 40)
-        setMovies(shortMovies);
+        setFilteredMovies(shortMovies);
         setIsPreloader(false)
       } else {
         const shortMovies = savedMovies.filter((movie) => movie.duration <= 40)
@@ -199,18 +203,13 @@ function App() {
         setIsPreloader(false)
         setSavedMovies(res);
       })
-      moviesApi.getMovies()
-      .then((res) => {
-        setIsPreloader(false)
-        setMovies(res);
-        handleSearch();
-      })
-      
+      let searchedMov = JSON.parse(localStorage.getItem('movies'))
+      setMovies(searchedMov)
     }
   }
 
-  function handleSearch(event) {
-    event.preventDefault();
+  function handleSearch(e) {
+    e.preventDefault();
     setIsPreloader(true)
     if (location.pathname === '/movies') {
     moviesApi
@@ -219,7 +218,7 @@ function App() {
           setIsPreloader(false)
           console.log(res);
           const moviesList = res.filter((movie) =>
-          movie.nameRU.toString().includes(isSearchValue.toString()));
+          movie.nameRU.toString().toLowerCase().includes(isSearchValue.toString().toLowerCase()));
           setMovies(moviesList);
           console.log(movies)
         })
@@ -231,7 +230,7 @@ function App() {
         .then((res) => {
           if (res) {
             setIsPreloader(false)
-            const searchSaved = res.filter((movie) => movie.nameRU.toString().includes(isSearchValue.toString()))
+            const searchSaved = res.filter((movie) => movie.nameRU.toString().toLowerCase().includes(isSearchValue.toString().toLowerCase()))
             setSavedMovies(searchSaved)
             console.log(res);
           }
@@ -271,6 +270,7 @@ function App() {
             movies={isSearchValue ? movies : savedMovies}
             isPreloader={isPreloader}
             checkbox={checkbox}
+            filteredMovies={filteredMovies}
           />
           <ProtectedRoute
             exact
