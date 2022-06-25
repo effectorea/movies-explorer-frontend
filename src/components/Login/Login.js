@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 function Login({ onLogin }) {
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid },
     reset,
   } = useForm({
@@ -48,7 +47,7 @@ function Login({ onLogin }) {
         name='registrationForm'
         action='#'
         noValidate
-        onSubmit={handleSubmit(handleFormSubmit)}
+        onSubmit={handleFormSubmit}
       >
         <label htmlFor='email' className='register__label'>
           E-mail

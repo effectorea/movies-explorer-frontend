@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 function Register({ onRegister }) {
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid },
     reset,
   } = useForm({
@@ -43,7 +42,7 @@ function Register({ onRegister }) {
       <form
         className='register__form'
         name='registrationForm'
-        onSubmit={handleSubmit(handleFormSubmit)}
+        onSubmit={handleFormSubmit}
         action='#'
         noValidate
       >
