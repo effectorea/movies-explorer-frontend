@@ -72,10 +72,6 @@
 }
 
 .popup__error {
-    display: none;
-}
-
-.popup__error_visible {
     display: flex;
     font-style: normal;
     font-weight: normal;
@@ -137,6 +133,13 @@
     transition: .3s opacity;
     border-radius: 2px;
 }
+
+.popup__save-btn_disabled {
+    cursor: default;
+    background: #a0a0a0;
+
+}
+
 .popup__save-btn:hover {
     opacity: 0.8;
 }
@@ -146,19 +149,6 @@
         font-size: 14px;
         line-height: 17px;
     }
-}
-
-.popup__save-btn_disabled {
-    opacity: 0.2;
-    background-color: #E5E5E5;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
-    color: #000000;
-    border: 1px solid #000000;
-    box-sizing: border-box;
-    border-radius: 2px;
-    cursor: auto;
 }
 
 .popup__status {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Movies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -6,7 +6,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import Burger from '../Burger/Burger';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import LoadMore from '../LoadMore/LoadMore';
-import { MainApi } from '../../utils/MainApi';
 import NoSearch from '../NoSearch/NoSearch';
 import Preloader from '../Preloader/Preloader';
 
@@ -27,7 +26,9 @@ function Movies({
   onFilter,
   isPreloader,
   checkbox,
-  filteredMovies
+  filteredMovies,
+  renderedMovies,
+  onLoadMore
 }) {
   return (
     <>
@@ -42,14 +43,14 @@ function Movies({
         checkbox={checkbox}
       />
       {isPreloader ? <Preloader/> : ""}
-      {movies.length === 0 || isSearchValue === '' ? <NoSearch/> : <MoviesCardList
-        movies={!isShortMovie ? filteredMovies : movies}
+      {renderedMovies.length === 0 || isSearchValue === '' ? <NoSearch/> : <MoviesCardList
+        movies={!isShortMovie ? filteredMovies : renderedMovies}
         filteredMovies={filteredMovies}
         savedMovies={savedMovies}
         onMovieLike={onMovieLike}
         onMovieDelete={onMovieDelete}
       />}
-      {movies.length === 100 ? "" : <LoadMore/>}
+      {renderedMovies.length < movies.length ? <LoadMore onLoadMore={onLoadMore}/> : ""}
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
     </>

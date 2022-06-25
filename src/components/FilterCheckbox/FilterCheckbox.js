@@ -10,8 +10,6 @@ function FilterCheckbox ({ isShortMovie, setIsShortMovie, onFilter, checkbox }) 
         setIsShortMovie(false)
       }
       onFilter();
-      console.log(checkbox.current.checked)
-      console.log(isShortMovie)
     }
     
     return (

@@ -62,13 +62,13 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
-    margin: 159px 0 300px; 
+    margin: 159px 0 250px; 
 }
 
 @media screen and (max-width: 490px) {
     .burger__links {
         gap: 24px;
-        margin: 144px 0 285px;
+        margin: 144px 0 250px;
     }
   }
 
