@@ -106,9 +106,19 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 type='email'
                 className='popup__input popup__input_add_mission'
               />
-              <span id='about-error' className='popup__error'>{errors?.email && errors.email.message}</span>
+              <span id='about-error' className='popup__error'>
+                {errors?.email && errors.email.message}
+              </span>
             </div>
-            <button type='submit' className={!isValid ? 'popup__save-btn popup__save-btn_disabled' : 'popup__save-btn'} disabled={!isValid}>
+            <button
+              type='submit'
+              className={
+                !isValid
+                  ? 'popup__save-btn popup__save-btn_disabled'
+                  : 'popup__save-btn'
+              }
+              disabled={!isValid}
+            >
               Сохранить
             </button>
           </form>

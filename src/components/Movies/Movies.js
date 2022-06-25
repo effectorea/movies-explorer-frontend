@@ -28,7 +28,7 @@ function Movies({
   checkbox,
   filteredMovies,
   renderedMovies,
-  onLoadMore
+  onLoadMore,
 }) {
   return (
     <>
@@ -42,15 +42,22 @@ function Movies({
         onFilter={onFilter}
         checkbox={checkbox}
       />
-      {isPreloader ? <Preloader/> : ""}
-      {renderedMovies.length === 0 || isSearchValue === '' ? <NoSearch/> : <MoviesCardList
-        movies={!isShortMovie ? filteredMovies : renderedMovies}
-        filteredMovies={filteredMovies}
-        savedMovies={savedMovies}
-        onMovieLike={onMovieLike}
-        onMovieDelete={onMovieDelete}
-      />}
-      {renderedMovies.length < movies.length ? <LoadMore onLoadMore={onLoadMore}/> : ""}
+      {isPreloader ? <Preloader /> : ''}
+      {renderedMovies.length === 0 || isSearchValue === '' ? (
+        <NoSearch />
+      ) : (
+        <MoviesCardList
+          movies={!isShortMovie ? filteredMovies : renderedMovies}
+          savedMovies={savedMovies}
+          onMovieLike={onMovieLike}
+          onMovieDelete={onMovieDelete}
+        />
+      )}
+      {renderedMovies.length < movies.length ? (
+        <LoadMore onLoadMore={onLoadMore} />
+      ) : (
+        ''
+      )}
       <Footer />
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
     </>

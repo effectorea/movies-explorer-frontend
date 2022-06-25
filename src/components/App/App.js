@@ -50,8 +50,6 @@ function App() {
 
   const location = useLocation();
 
-  
-
   const handleUpdateUser = useCallback(
     (info) => {
       MainApi.setUserInfo(info, jwt)
@@ -118,48 +116,50 @@ function App() {
     }
   }, [jwt, setSavedMovies]);
 
-  const handleSearch = useCallback((e) => {
-    e.preventDefault();
-    setIsPreloader(true);
-    if (location.pathname === '/movies') {
-      moviesApi
-        .getMovies()
-        .then((res) => {
-          setIsPreloader(false);
-          console.log(res);
-          const moviesList = res.filter((movie) =>
-            movie.nameRU
-              .toString()
-              .toLowerCase()
-              .includes(isSearchValue.toString().toLowerCase())
-          );
-          setMovies(moviesList);
-          console.log(movies);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      MainApi.getSavedMovies(jwt)
-        .then((res) => {
-          if (res) {
+  const handleSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      setIsPreloader(true);
+      if (location.pathname === '/movies') {
+        moviesApi
+          .getMovies()
+          .then((res) => {
             setIsPreloader(false);
-            const searchSaved = res.filter((movie) =>
+            console.log(res);
+            const moviesList = res.filter((movie) =>
               movie.nameRU
                 .toString()
                 .toLowerCase()
                 .includes(isSearchValue.toString().toLowerCase())
             );
-            setSavedMovies(searchSaved);
-            console.log(res);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [isSearchValue, jwt, location.pathname, movies, setMovies])
-
+            setMovies(moviesList);
+            console.log(movies);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        MainApi.getSavedMovies(jwt)
+          .then((res) => {
+            if (res) {
+              setIsPreloader(false);
+              const searchSaved = res.filter((movie) =>
+                movie.nameRU
+                  .toString()
+                  .toLowerCase()
+                  .includes(isSearchValue.toString().toLowerCase())
+              );
+              setSavedMovies(searchSaved);
+              console.log(res);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    [isSearchValue, jwt, location.pathname, movies, setMovies]
+  );
 
   const countStartMovies = useCallback(() => {
     if (width >= 1280) {
@@ -169,9 +169,9 @@ function App() {
       return 8;
     }
     return 5;
-  }, [width])
+  }, [width]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const movies = countStartMovies();
 
     if (localStorage.getItem('movies')) {
@@ -264,7 +264,9 @@ function App() {
     setIsPreloader(true);
     if (checkbox.current.checked) {
       if (location.pathname === '/movies') {
-        const shortMovies = renderedMovies.filter((movie) => movie.duration <= 40);
+        const shortMovies = renderedMovies.filter(
+          (movie) => movie.duration <= 40
+        );
         setFilteredMovies(shortMovies);
         setIsPreloader(false);
       } else {
@@ -293,12 +295,14 @@ function App() {
     setIsPreloader(true);
     const mov = countStartMovies();
     setRenderedMovies(
-      JSON.parse(localStorage.getItem('movies')).slice(0, mov + countMovies * moviesCount())
+      JSON.parse(localStorage.getItem('movies')).slice(
+        0,
+        mov + countMovies * moviesCount()
+      )
     );
     setCountMovies(countMovies + 1);
     setIsPreloader(false);
   }
-
 
   return (
     <div className='App'>
