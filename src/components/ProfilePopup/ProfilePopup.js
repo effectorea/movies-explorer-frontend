@@ -10,7 +10,6 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid },
     reset,
   } = useForm({
@@ -49,7 +48,7 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
             name={name}
             action='#'
             className='popup__form'
-            onSubmit={handleSubmit(handleFormSubmit)}
+            onSubmit={handleFormSubmit}
           >
             <div>
               <input
