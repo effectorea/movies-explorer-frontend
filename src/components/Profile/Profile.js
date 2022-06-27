@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import Burger from '../Burger/Burger';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function Profile({ openBurgerMenu, burgerMenu, closeBurgerMenu, openEditPopup, onSignOut }) {
+function Profile({ openBurgerMenu, burgerMenu, closeBurgerMenu, openEditPopup, onSignOut, loggedIn }) {
   const currentUser = useContext(CurrentUserContext);
   
   const [values, setValues] = useState({
@@ -25,7 +25,7 @@ function Profile({ openBurgerMenu, burgerMenu, closeBurgerMenu, openEditPopup, o
 
   return (
     <>
-      <Header openBurgerMenu={openBurgerMenu} />
+      <Header openBurgerMenu={openBurgerMenu} loggedIn={loggedIn}/>
       <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
       <section className='profile'>
         <div className='profile__content'>

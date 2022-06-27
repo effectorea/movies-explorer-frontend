@@ -3,7 +3,7 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox({ isShortMovie, setIsShortMovie, onFilter, checkbox }) {
   const toggleCheckbox = () => {
-    if (!checkbox.current.checked) {
+    if (checkbox.current.checked) {
       setIsShortMovie(true);
     } else {
       setIsShortMovie(false);
@@ -15,7 +15,7 @@ function FilterCheckbox({ isShortMovie, setIsShortMovie, onFilter, checkbox }) {
     <div className='filter'>
       <label
         className={
-          !isShortMovie ? 'filter__checkbox_active' : 'filter__checkbox'
+          isShortMovie ? 'filter__checkbox_active' : 'filter__checkbox'
         }
       >
         <input
