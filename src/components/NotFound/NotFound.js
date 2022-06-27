@@ -2,7 +2,7 @@ import React from "react";
 import "./NotFound.css";
 import { useHistory } from "react-router-dom";
 
-function NotFound() {
+function NotFound({loggedIn}) {
   const history = useHistory();
 
   const handleGoBack = () => {

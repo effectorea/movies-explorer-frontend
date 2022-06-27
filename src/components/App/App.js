@@ -324,7 +324,6 @@ function App() {
             <Footer />
           </Route>
           <ProtectedRoute
-            exact
             path='/movies'
             component={Movies}
             loggedIn={loggedIn}
@@ -348,7 +347,6 @@ function App() {
             onLoadMore={loadMoreMovies}
           />
           <ProtectedRoute
-            exact
             path='/saved-movies'
             component={SavedMovies}
             loggedIn={loggedIn}
@@ -368,7 +366,6 @@ function App() {
             checkbox={checkbox}
           />
           <ProtectedRoute
-            exact
             path='/profile'
             component={Profile}
             loggedIn={loggedIn}
@@ -386,7 +383,7 @@ function App() {
           <Route path='/sign-in'>
             <Login onLogin={handleLoggingIn} />
           </Route>
-          <Route path='*'>
+          <Route path='*' loggedIn={loggedIn}>
             <NotFound />
           </Route>
         </Switch>

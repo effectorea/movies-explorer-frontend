@@ -27,7 +27,7 @@ function SavedMovies({
 }) {
   return (
     <>
-      <Header openBurgerMenu={openBurgerMenu} />
+    <Header openBurgerMenu={openBurgerMenu} loggedIn={loggedIn} />
       <SearchForm
         isShortMovie={isShortMovie}
         setIsShortMovie={setIsShortMovie}

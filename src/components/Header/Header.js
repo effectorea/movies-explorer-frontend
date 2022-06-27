@@ -14,8 +14,8 @@ function Header({ openBurgerMenu, loggedIn  }) {
         <img src={headerLogo} alt='Логотип Место' className='header__logo' />
       </Link>
 
-      {location.pathname === '/' ? <NavMain /> : <Navigation />}
-      {location.pathname === '/' ? (
+      {!loggedIn ? <NavMain /> : <Navigation />}
+      {!loggedIn ? (
         ''
       ) : (
         <img
