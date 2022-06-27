@@ -197,12 +197,12 @@ function App() {
     setBurgerMenu(false);
   };
 
-  function handleRegistration({ name, email, password }) {
-    MainApi.register(name, email, password)
+  function handleRegistration(newUser) {
+    MainApi.register(newUser.name, newUser.email, newUser.password)
       .then((res) => {
         if (res) {
           console.log(res)
-          history.push('/movies');
+          handleLoggingIn(newUser);
         }
       })
       .catch((err) => {
@@ -210,8 +210,8 @@ function App() {
       });
   }
 
-  function handleLoggingIn({ email, password }) {
-    MainApi.login(email, password)
+  function handleLoggingIn(user) {
+    MainApi.login(user.email, user.password)
       .then((res) => {
         console.log(res.user);
         if (res.token) {
