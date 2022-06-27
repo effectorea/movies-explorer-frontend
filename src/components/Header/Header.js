@@ -6,7 +6,7 @@ import NavMain from '../NavMain/NavMain';
 import Navigation from '../Navigation/Navigation';
 import burger from '../../images/burger-btn.svg';
 
-function Header({ openBurgerMenu }) {
+function Header({ openBurgerMenu, loggedIn  }) {
   const location = useLocation();
   return (
     <header className='header'>

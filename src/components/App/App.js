@@ -38,7 +38,7 @@ function App() {
     'renderedMovies',
     []
   ); //отрисованные фильмы
-  const [savedMovies, setSavedMovies] = useState([]); //сохраненные фильмы
+  const [savedMovies, setSavedMovies] = useLocalStorage('savedMovies', []); //сохраненные фильмы
 
   const [countMovies, setCountMovies] = useState(1);
 
@@ -82,6 +82,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             setCurrentUser(res);
+            console.log(currentUser)
             history.push('/movies');
           } else {
             localStorage.removeItem(jwt);
@@ -200,7 +201,8 @@ function App() {
     MainApi.register(name, email, password)
       .then((res) => {
         if (res) {
-          history.push('/sign-in');
+          console.log(res)
+          history.push('/movies');
         }
       })
       .catch((err) => {
@@ -220,14 +222,22 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
       });
   }
 
   function handleSignOut() {
     localStorage.removeItem('jwt');
-    history.push('/sign-in');
+    history.push('/');
     setLoggedIn(false);
+    setSearchMovies([]);
+    setMovies([]);
+    setFilteredMovies([]);
+    setRenderedMovies([]);
+    setSavedMovies([]);
+    setIsShortMovie(false);
+    setIsSearchValue('');
+    
   }
 
   const handleCardLike = useCallback(
@@ -309,7 +319,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path='/'>
-            <Header />
+            <Header loggedIn={loggedIn} openBurgerMenu={openBurgerMenu}/>
             <Main />
             <Footer />
           </Route>

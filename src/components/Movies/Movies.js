@@ -53,7 +53,7 @@ function Movies({
           onMovieDelete={onMovieDelete}
         />
       )}
-      {renderedMovies.length < movies.length ? (
+      {renderedMovies.length < movies.length && isSearchValue !== '' ? (
         <LoadMore onLoadMore={onLoadMore} />
       ) : (
         ''

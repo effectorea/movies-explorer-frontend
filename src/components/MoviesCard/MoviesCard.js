@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import './MoviesCard.css';
 import { useLocalStorage } from '../../utils/useLocalStorage';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function MoviesCard({
   movie,
@@ -13,12 +14,17 @@ function MoviesCard({
   trailerLink,
   image,
 }) {
+  const currentUser = React.useContext(CurrentUserContext);
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
+  const isSaved = savedMovies.some(
+    (el) => el.movieId === movie.id && el.owner === currentUser._id
+  );
 
   const handleLikeClick = () => {
-    if (!isLiked) {
+    if (!isSaved) {
       onMovieLike(movie);
+      console.log(movie)
       setIsLiked(true);
     } else {
       const movieElement = savedMovies.filter((el) => el.movieId === movie.id);
@@ -29,7 +35,7 @@ function MoviesCard({
 
   const handleMovieClick = () => {
     onMovieDelete(movie._id);
-    console.log(movie._id);
+    console.log(movie);
   };
 
   return (
@@ -43,7 +49,7 @@ function MoviesCard({
           className={
             location.pathname !== '/movies'
               ? 'movie__like_delete'
-              : isLiked
+              : isSaved
               ? 'movie__like_active'
               : 'movie__like'
           }
