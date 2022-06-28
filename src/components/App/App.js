@@ -46,6 +46,8 @@ function App() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
+  const [text, setText] = useState('');
+
   const jwt = localStorage.getItem('jwt');
 
   const location = useLocation();
@@ -206,6 +208,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     clearForm();
     setIsInfoTooltipOpen(false);
+    setText('');
   }
 
   const openBurgerMenu = () => {
@@ -226,6 +229,11 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        if (err.toString() === 'Ошибка: 409') {
+          setIsInfoTooltipOpen(true);
+          setStatus(false);
+          setText('Такая почта уже есть в базе!')
+        }
         setIsInfoTooltipOpen(true);
         setStatus(false);
       });
@@ -383,6 +391,7 @@ function App() {
           status={status}
           onClose={closePopups}
           isOpen={isInfoTooltipOpen}
+          text={text}
         />
       </CurrentUserContext.Provider>
     </div>

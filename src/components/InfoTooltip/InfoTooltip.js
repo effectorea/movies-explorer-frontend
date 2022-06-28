@@ -4,7 +4,7 @@ import failure from "../../images/failure.svg";
 import './InfoTooltip.css';
 import '../ProfilePopup/ProfilePopup.css';
 
-function InfoTooltip({ status, onClose, isOpen }) {
+function InfoTooltip({ status, onClose, isOpen, text }) {
   return (
     <div
       id="infoTooltip"
@@ -25,7 +25,7 @@ function InfoTooltip({ status, onClose, isOpen }) {
         <h2 className="popup__title-status">
           {status
             ? "Вы успешно зарегистрированы!"
-            : "Что-то пошло не так! Попробуйте ещё раз."}
+            : text !== '' ? text : 'Что-то пошло не так! Попробуйте ещё раз.'}
         </h2>
       </div>
     </div>
