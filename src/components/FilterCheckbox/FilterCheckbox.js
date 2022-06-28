@@ -1,14 +1,13 @@
 import React from 'react';
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ isShortMovie, setIsShortMovie, onFilter, checkbox }) {
+function FilterCheckbox({ isShortMovie, setIsShortMovie, checkbox }) {
   const toggleCheckbox = () => {
     if (checkbox.current.checked) {
       setIsShortMovie(true);
     } else {
       setIsShortMovie(false);
     }
-    onFilter();
   };
 
   return (
@@ -21,6 +20,7 @@ function FilterCheckbox({ isShortMovie, setIsShortMovie, onFilter, checkbox }) {
         <input
           onChange={toggleCheckbox}
           ref={checkbox}
+          checked={isShortMovie}
           type='checkbox'
           className='filter__input'
         />

@@ -10,22 +10,25 @@ function SearchForm({
   isSearchValue,
   setIsSearchValue,
   onSearchMovies,
-  onFilter,
   checkbox,
 }) {
   const {
     register,
     formState: { errors, isValid },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
+  });
+  const searchText = register('searchText', {
+    required: 'Нужно ввести ключевое слово',
   });
 
   const handleValueChange = (e) => {
+    searchText.onChange(e);
     setIsSearchValue(e.target.value);
   };
 
   return (
-    
+
     <section className='search'>
       <div className='search__section'>
         <div className='search__block'>
@@ -37,11 +40,8 @@ function SearchForm({
           >
             <fieldset className='search__field'>
               <input
-                {...register('searchText', {
-                  required: 'Нужно ввести ключевое слово',
-                })}
+                {...searchText}
                 className='search__input'
-                name='searchText'
                 type='text'
                 placeholder='Фильм'
                 value={isSearchValue}
@@ -60,7 +60,6 @@ function SearchForm({
         <FilterCheckbox
           isShortMovie={isShortMovie}
           setIsShortMovie={setIsShortMovie}
-          onFilter={onFilter}
           checkbox={checkbox}
         />
       </div>

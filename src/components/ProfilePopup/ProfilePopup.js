@@ -7,7 +7,6 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [disable, setDisable] = useState(false);
 
   const {
     register,
@@ -17,24 +16,17 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
     mode: 'onBlur',
   });
 
-/*   useEffect(() => {
+  useEffect(() => {
     setName(currentUser?.name);
     setEmail(currentUser?.email);
-  }, [currentUser]); */
+  }, [currentUser]);
 
   function handleNameChange(e) {
     setName(e.target.value);
-    if (e.target.value === currentUser.name) {
-      setDisable(true)
-    }
   }
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
-    if (e.target.value === currentUser.email) {
-      setDisable(true)
-      console.log(e.target.value)
-    }
   }
 
   function handleFormSubmit(e) {
@@ -120,11 +112,11 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
             <button
               type='submit'
               className={
-                !isValid || disable === true
+                !isValid
                   ? 'popup__save-btn popup__save-btn_disabled'
                   : 'popup__save-btn'
               }
-              disabled={!isValid || disable === true}
+              disabled={!isValid}
             >
               Сохранить
             </button>

@@ -21,7 +21,6 @@ function SavedMovies({
   onMovieLike,
   onMovieDelete,
   onSearchMovies,
-  onFilter,
   isPreloader,
   checkbox
 }) {
@@ -34,7 +33,6 @@ function SavedMovies({
         isSearchValue={isSearchValue}
         setIsSearchValue={setIsSearchValue}
         onSearchMovies={onSearchMovies}
-        onFilter={onFilter}
         checkbox={checkbox}
       />
       {isPreloader ? <Preloader /> : ''}

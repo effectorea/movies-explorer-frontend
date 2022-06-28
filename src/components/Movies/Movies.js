@@ -18,12 +18,10 @@ function Movies({
   setIsShortMovie,
   isSearchValue,
   setIsSearchValue,
-  movies,
   savedMovies,
   onMovieLike,
   onMovieDelete,
   onSearchMovies,
-  onFilter,
   isPreloader,
   checkbox,
   filteredMovies,
@@ -39,7 +37,6 @@ function Movies({
         isSearchValue={isSearchValue}
         setIsSearchValue={setIsSearchValue}
         onSearchMovies={onSearchMovies}
-        onFilter={onFilter}
         checkbox={checkbox}
       />
       {isPreloader ? <Preloader /> : ''}
@@ -47,13 +44,13 @@ function Movies({
         <NoSearch />
       ) : (
         <MoviesCardList
-          movies={!isShortMovie ? filteredMovies : renderedMovies}
+          movies={renderedMovies}
           savedMovies={savedMovies}
           onMovieLike={onMovieLike}
           onMovieDelete={onMovieDelete}
         />
       )}
-      {renderedMovies.length < movies.length && isSearchValue !== '' ? (
+      {renderedMovies.length < filteredMovies.length && isSearchValue !== '' ? (
         <LoadMore onLoadMore={onLoadMore} />
       ) : (
         ''
