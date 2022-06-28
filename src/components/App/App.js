@@ -197,11 +197,10 @@ function App() {
     setIsEditProfilePopupOpen(true);
   }
 
-  function clearForm () {
+  function clearForm() {
     setName('');
     setEmail('');
   }
-
 
   function closePopups() {
     setIsEditProfilePopupOpen(false);
@@ -227,6 +226,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setIsInfoTooltipOpen(true);
+        setStatus(false);
       });
   }
 
@@ -238,11 +239,15 @@ function App() {
           setCurrentUser(res.user);
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
+          setIsInfoTooltipOpen(true);
+          setStatus(true);
           history.push('/movies');
         }
       })
       .catch((err) => {
         console.log(err);
+        setIsInfoTooltipOpen(true);
+        setStatus(false);
       });
   }
 
@@ -265,6 +270,7 @@ function App() {
           })
           .catch((err) => {
             console.log(err);
+            
           });
       }
     },

@@ -14,7 +14,7 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser, name, email, setName, set
     formState: { errors, isValid },
     reset,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   /*   useEffect(() => {
@@ -65,6 +65,7 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser, name, email, setName, set
             <div>
               <input
                 {...register('name', {
+                  onChange: handleNameChange,
                   required: 'Поле обязательно к заполнению',
                   minLength: {
                     value: 3,
@@ -83,7 +84,7 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser, name, email, setName, set
                 placeholder='Имя'
                 name='name'
                 value={name || ''}
-                onChange={handleNameChange}
+                
                 id='name'
                 type='text'
                 className='popup__input popup__input_add_name'
@@ -93,6 +94,7 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser, name, email, setName, set
               </span>
               <input
                 {...register('email', {
+                  onChange: handleEmailChange,
                   required: 'Поле обязательно к заполнению',
                   minLength: {
                     value: 3,
@@ -112,7 +114,6 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser, name, email, setName, set
                 placeholder='Почта'
                 name='email'
                 value={email || ''}
-                onChange={handleEmailChange}
                 id='email'
                 type='email'
                 className='popup__input popup__input_add_mission'

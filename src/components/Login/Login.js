@@ -10,7 +10,7 @@ function Login({ onLogin }) {
     formState: { errors, isValid },
     reset,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const [isRegister, setIsRegister] = useState({
@@ -54,6 +54,7 @@ function Login({ onLogin }) {
         </label>
         <input
           {...register('email', {
+            onChange: handleChange,
             required: 'Поле обязательно к заполнению',
             minLength: {
               value: 3,
@@ -76,7 +77,6 @@ function Login({ onLogin }) {
           name='email'
           type='email'
           value={isRegister.email}
-          onChange={handleChange}
         />
         <span className='register__error'>
           {errors?.email && errors.email.message}
@@ -86,6 +86,7 @@ function Login({ onLogin }) {
         </label>
         <input
           {...register('password', {
+            onChange: handleChange,
             required: 'Поле обязательно к заполнению',
             minLength: {
               value: 8,
@@ -107,7 +108,6 @@ function Login({ onLogin }) {
           name='password'
           type='password'
           value={isRegister.password}
-          onChange={handleChange}
         />
         <span className='register__error'>
           {errors?.password && errors.password.message}

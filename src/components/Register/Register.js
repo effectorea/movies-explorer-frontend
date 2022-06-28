@@ -10,7 +10,7 @@ function Register({ onRegister }) {
     formState: { errors, isValid },
     reset,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const [isRegister, setIsRegister] = useState({
@@ -51,6 +51,7 @@ function Register({ onRegister }) {
         </label>
         <input
           {...register('name', {
+            onChange: handleChange,
             required: 'Поле обязательно к заполнению',
             minLength: {
               value: 3,
@@ -70,7 +71,6 @@ function Register({ onRegister }) {
           name='name'
           type='name'
           value={isRegister.name}
-          onChange={handleChange}
         />
         <span className='register__error'>
           {errors?.name && errors.name.message}
@@ -80,6 +80,7 @@ function Register({ onRegister }) {
         </label>
         <input
           {...register('email', {
+            onChange: handleChange,
             required: 'Поле обязательно к заполнению',
             minLength: {
               value: 3,
@@ -101,7 +102,6 @@ function Register({ onRegister }) {
           name='email'
           type='email'
           value={isRegister.email}
-          onChange={handleChange}
         />
         <span className='register__error'>
           {errors?.email && errors.email.message}
@@ -111,6 +111,7 @@ function Register({ onRegister }) {
         </label>
         <input
           {...register('password', {
+            onChange: handleChange,
             required: 'Поле обязательно к заполнению',
             minLength: {
               value: 8,
@@ -131,7 +132,6 @@ function Register({ onRegister }) {
           name='password'
           type='password'
           value={isRegister.password}
-          onChange={handleChange}
         />
         <span className='register__error'>
           {errors?.password && errors.password.message}

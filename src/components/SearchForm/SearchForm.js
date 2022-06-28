@@ -18,12 +18,8 @@ function SearchForm({
   } = useForm({
     mode: 'onChange',
   });
-  const searchText = register('searchText', {
-    required: 'Нужно ввести ключевое слово',
-  });
 
   const handleValueChange = (e) => {
-    searchText.onChange(e);
     setIsSearchValue(e.target.value);
   };
 
@@ -40,12 +36,14 @@ function SearchForm({
           >
             <fieldset className='search__field'>
               <input
-                {...searchText}
+                {...register('searchText', {
+                  onChange: handleValueChange,
+                  required: 'Нужно ввести ключевое слово',
+                })}
                 className='search__input'
                 type='text'
                 placeholder='Фильм'
                 value={isSearchValue}
-                onChange={handleValueChange}
                 autoComplete='off'
               />
               <button
