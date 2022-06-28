@@ -229,7 +229,6 @@ function App() {
     setSavedMovies([]);
     setIsShortMovie(false);
     setIsSearchValue('');
-
   }
 
   const handleCardLike = useCallback(

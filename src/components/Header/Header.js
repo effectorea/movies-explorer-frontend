@@ -1,13 +1,12 @@
 import React from 'react';
 import './Header.css';
 import headerLogo from '../../images/logo.svg';
-import { useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NavMain from '../NavMain/NavMain';
 import Navigation from '../Navigation/Navigation';
 import burger from '../../images/burger-btn.svg';
 
 function Header({ openBurgerMenu, loggedIn  }) {
-  const location = useLocation();
   return (
     <header className='header'>
       <Link to='/'>

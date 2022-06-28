@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import './MoviesCard.css';
-import { useLocalStorage } from '../../utils/useLocalStorage';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function MoviesCard({
@@ -14,7 +13,7 @@ function MoviesCard({
   trailerLink,
   image,
 }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
   const isSaved = savedMovies.some(

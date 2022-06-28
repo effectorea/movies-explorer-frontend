@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import './ProfilePopup.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useForm } from 'react-hook-form';
@@ -7,6 +7,7 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [disable, setDisable] = useState(false);
 
   const {
     register,
@@ -16,17 +17,27 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
     mode: 'onBlur',
   });
 
-  useEffect(() => {
+/*   useEffect(() => {
     setName(currentUser?.name);
     setEmail(currentUser?.email);
-  }, [currentUser]);
+  }, [currentUser]); */
 
   function handleNameChange(e) {
     setName(e.target.value);
+    if (e.target.value === currentUser.name) {
+      setDisable(true)
+    } else {
+      setDisable(false)
+    }
   }
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
+    if (e.target.value === currentUser.email) {
+      setDisable(true)
+    } else {
+      setDisable(false)
+    }
   }
 
   function handleFormSubmit(e) {
@@ -112,11 +123,11 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
             <button
               type='submit'
               className={
-                !isValid
+                !isValid || disable === true
                   ? 'popup__save-btn popup__save-btn_disabled'
                   : 'popup__save-btn'
               }
-              disabled={!isValid}
+              disabled={!isValid || disable === true}
             >
               Сохранить
             </button>
