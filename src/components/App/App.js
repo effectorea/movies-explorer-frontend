@@ -18,6 +18,7 @@ import { useLocalStorage } from '../../utils/useLocalStorage';
 import { moviesApi } from '../../utils/MoviesApi';
 import { useLocation } from 'react-router-dom';
 import useWindowWidth from '../../utils/useWindowWidth';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 function App() {
   const history = useHistory();
@@ -39,6 +40,11 @@ function App() {
   const [isShortSavedMovie, setIsShortSavedMovie] = useState(false);
   const [searchValueForSavedMovie, setSearchValueForSavedMovie] = useState('');
   const [isPreloader, setIsPreloader] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [status, setStatus] = useState(true);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   const jwt = localStorage.getItem('jwt');
 
@@ -48,35 +54,47 @@ function App() {
     (info) => {
       MainApi.setUserInfo(info, jwt)
         .then((res) => {
-          setCurrentUser(res);
-          closeEditPopup();
+          if (res) {
+            setCurrentUser(res);
+            closePopups();
+            setIsInfoTooltipOpen(true);
+            setStatus(true);
+          }
         })
         .catch((err) => {
           console.log(`Ошибка при загрузке данных пользователя ${err}`);
+          closePopups();
+          setIsInfoTooltipOpen(true);
+          setStatus(false);
         });
     },
     [jwt]
   );
-  const getSavedMovies = (jwt) => MainApi.getSavedMovies(jwt)
-      .then((res) => Array.isArray(res)
-            ? res.filter(({owner}) => currentUser._id === owner)
-            : [],
+  const getSavedMovies = (jwt) =>
+    MainApi.getSavedMovies(jwt)
+      .then((res) =>
+        Array.isArray(res)
+          ? res.filter(({ owner }) => currentUser._id === owner)
+          : []
       )
       .catch(console.error);
   const getSearchMovies = () => {
-    const search = location.pathname === '/movies' ? isSearchValue : searchValueForSavedMovie;
+    const search =
+      location.pathname === '/movies'
+        ? isSearchValue
+        : searchValueForSavedMovie;
     let items = location.pathname === '/movies' ? movies : savedMovies;
 
-    return items
-        .filter((movie) =>
-            movie.nameRU
-                .toString()
-                .toLowerCase()
-                .includes(search.toString().toLowerCase())
-        );
-  }
+    return items.filter((movie) =>
+      movie.nameRU
+        .toString()
+        .toLowerCase()
+        .includes(search.toString().toLowerCase())
+    );
+  };
   const getFilteredMovies = () => {
-    let isShort = location.pathname === '/movies' ? isShortMovie : isShortSavedMovie;
+    let isShort =
+      location.pathname === '/movies' ? isShortMovie : isShortSavedMovie;
     let items = getSearchMovies();
 
     if (isShort) {
@@ -99,14 +117,13 @@ function App() {
       return 3;
     }
     return 2;
-  }
+  };
   const getRenderMovies = () => {
-    return getFilteredMovies()
-        .slice(
-            0,
-            countStartMovies() + countMovies * moviesCount()
-        );
-  }
+    return getFilteredMovies().slice(
+      0,
+      countStartMovies() + countMovies * moviesCount()
+    );
+  };
 
   useEffect(() => {
     if (jwt) {
@@ -115,7 +132,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             setCurrentUser(res);
-            console.log('currentUser', res)
+            console.log('currentUser', res);
           } else {
             localStorage.removeItem(jwt);
           }
@@ -139,8 +156,7 @@ function App() {
 
   useEffect(() => {
     if (currentUser._id) {
-      getSavedMovies(jwt)
-          .then((res) => setSavedMovies(res));
+      getSavedMovies(jwt).then((res) => setSavedMovies(res));
     }
   }, [currentUser]);
 
@@ -149,12 +165,12 @@ function App() {
       setIsShortSavedMovie(false);
       setSearchValueForSavedMovie('');
     }
-  }, [history.location])
+  }, [history.location]);
 
   const handleSearch = useCallback(
-      (e) => {
+    (e) => {
       e.preventDefault();
-        console.log('handleSearch');
+      console.log('handleSearch');
       setIsPreloader(true);
       if (location.pathname === '/movies') {
         moviesApi
@@ -180,8 +196,17 @@ function App() {
   function openEditPopup() {
     setIsEditProfilePopupOpen(true);
   }
-  function closeEditPopup() {
+
+  function clearForm () {
+    setName('');
+    setEmail('');
+  }
+
+
+  function closePopups() {
     setIsEditProfilePopupOpen(false);
+    clearForm();
+    setIsInfoTooltipOpen(false);
   }
 
   const openBurgerMenu = () => {
@@ -196,7 +221,7 @@ function App() {
     MainApi.register(newUser.name, newUser.email, newUser.password)
       .then((res) => {
         if (res) {
-          console.log(res)
+          console.log(res);
           handleLoggingIn(newUser);
         }
       })
@@ -274,7 +299,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path='/'>
-            <Header loggedIn={loggedIn} openBurgerMenu={openBurgerMenu}/>
+            <Header loggedIn={loggedIn} openBurgerMenu={openBurgerMenu} />
             <Main />
             <Footer />
           </Route>
@@ -341,8 +366,17 @@ function App() {
         </Switch>
         <ProfilePopup
           isOpen={isEditProfilePopupOpen}
-          onClose={closeEditPopup}
+          onClose={closePopups}
           onUpdateUser={handleUpdateUser}
+          name={name}
+          email={email}
+          setName={setName}
+          setEmail={setEmail}
+        />
+        <InfoTooltip
+          status={status}
+          onClose={closePopups}
+          isOpen={isInfoTooltipOpen}
         />
       </CurrentUserContext.Provider>
     </div>

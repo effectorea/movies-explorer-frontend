@@ -3,21 +3,21 @@ import './ProfilePopup.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useForm } from 'react-hook-form';
 
-function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
+function ProfilePopup({ isOpen, onClose, onUpdateUser, name, email, setName, setEmail }) {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  
   const [disable, setDisable] = useState(false);
 
   const {
     register,
+    handleSubmit,
     formState: { errors, isValid },
     reset,
   } = useForm({
     mode: 'onBlur',
   });
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     setName(currentUser?.name);
     setEmail(currentUser?.email);
   }, [currentUser]); */
@@ -25,29 +25,30 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
   function handleNameChange(e) {
     setName(e.target.value);
     if (e.target.value === currentUser.name) {
-      setDisable(true)
+      setDisable(true);
     } else {
-      setDisable(false)
+      setDisable(false);
     }
   }
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
     if (e.target.value === currentUser.email) {
-      setDisable(true)
+      setDisable(true);
     } else {
-      setDisable(false)
+      setDisable(false);
     }
   }
 
-  function handleFormSubmit(e) {
-    e.preventDefault();
+  function handleFormSubmit(data) {
+    /*     e.preventDefault(); */
+    console.log(JSON.stringify(data));
     onUpdateUser({
       name: name,
       email: email,
     });
-    reset();
     onClose();
+    reset();
   }
 
   return (
@@ -59,7 +60,7 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser }) {
             name={name}
             action='#'
             className='popup__form'
-            onSubmit={handleFormSubmit}
+            onSubmit={handleSubmit(handleFormSubmit)}
           >
             <div>
               <input
