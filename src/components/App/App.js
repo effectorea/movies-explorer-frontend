@@ -19,6 +19,7 @@ import { moviesApi } from '../../utils/MoviesApi';
 import { useLocation } from 'react-router-dom';
 import useWindowWidth from '../../utils/useWindowWidth';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import Burger from '../Burger/Burger';
 
 function App() {
   const history = useHistory();
@@ -316,6 +317,7 @@ function App() {
             <Header loggedIn={loggedIn} openBurgerMenu={openBurgerMenu} />
             <Main />
             <Footer />
+            <Burger isOpen={burgerMenu} onClose={closeBurgerMenu} />
           </Route>
           <ProtectedRoute
             path='/movies'

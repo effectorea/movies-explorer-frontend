@@ -32,7 +32,7 @@ function Burger({ isOpen, onClose }) {
         <div className='burger__content'>
           <ul className='burger__links'>
             <li className='burger__link'>
-              <Link className='burger__link-unit' to='/'>
+              <Link className='burger__link-unit' onClick={onClose} to='/'>
                 Главная
               </Link>
             </li>
