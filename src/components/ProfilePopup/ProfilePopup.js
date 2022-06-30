@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './ProfilePopup.css';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useForm } from 'react-hook-form';
@@ -17,10 +17,10 @@ function ProfilePopup({ isOpen, onClose, onUpdateUser, name, email, setName, set
     mode: 'onChange',
   });
 
-  /*   useEffect(() => {
+    useEffect(() => {
     setName(currentUser?.name);
     setEmail(currentUser?.email);
-  }, [currentUser]); */
+  }, [currentUser]);
 
   function handleNameChange(e) {
     setName(e.target.value);
